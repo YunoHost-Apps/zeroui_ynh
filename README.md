@@ -26,16 +26,19 @@ This project is highly inspired by [ztncui](https://github.com/key-networks/ztnc
 - ZeroUI is more feature complete. ZeroUI has almost all network-controller-supported features, for example, rule editor. The development process hasn't stopped, so you will enjoy new features and bug fixes shortly.
 
 
-**Shipped version:** 1.5.1~ynh1
+**Shipped version:** 1.5.8~ynh1
 
 ## Screenshots
 
 ![Screenshot of ZeroUI](./doc/screenshots/homepage.png)
 
+## :red_circle: Antifeatures
+
+- **Non-free dependencies**: Relies on software dependencies that are not free in order to run.
+
 ## Documentation and resources
 
 * Upstream app code repository: <https://github.com/dec0dOS/zero-ui>
-* YunoHost documentation for this app: <https://yunohost.org/app_zeroui>
 * Report a bug: <https://github.com/YunoHost-Apps/zeroui_ynh/issues>
 
 ## Developer info

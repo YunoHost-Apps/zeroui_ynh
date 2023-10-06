@@ -7,7 +7,7 @@ name = "ZeroUI"
 description.en = "A web user interface for a ZeroTier network controller"
 description.fr = "Une interface utilisateur web pour un contrôleur de réseau ZeroTier"
 
-version = "1.5.1~ynh1"
+version = "1.5.8~ynh1"
 
 maintainers = ["tituspijean"]
 
@@ -41,8 +41,8 @@ ram.runtime = "50M"
     [resources.sources]
 
         [resources.sources.main]
-        url = "https://github.com/dec0dOS/zero-ui/archive/refs/tags/v1.5.1.tar.gz"
-        sha256 = "cbdceeec98c3c3ed2399147414cdba42d937f2b0cb1d481fce5df7eb2d4dbc4f"
+        url = "https://github.com/dec0dOS/zero-ui/archive/refs/tags/v1.5.8.tar.gz"
+        sha256 = "465ec7d0b90296720b6cbee8f2b4dfa03fdbfd525cbdf04a55d0754709ea71e0"
 
         autoupdate.strategy = "latest_github_tag"
 
