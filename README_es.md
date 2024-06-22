@@ -32,7 +32,7 @@ This project is highly inspired by [ztncui](https://github.com/key-networks/ztnc
 
 ![Captura de ZeroUI](./doc/screenshots/homepage.png)
 
-## :red_circle: funcionalidades no deseadas
+## :red_circle: Características no deseables
 
 - **Non-free dependencies**: Relies on software dependencies that are not free in order to run.
 
