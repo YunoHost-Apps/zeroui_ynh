@@ -34,7 +34,7 @@ ram.runtime = "50M"
     type = "group"
     default = "admins"
     help.en = "Choose which group can administer the ZeroTier controller. Never select Visitors!"
-    help.fr = "Choisissez quel group peut administrer le contrôleur ZeroTier. Ne sélectionnez jamais les Visiteurs !"
+    help.fr = "Choisissez quel groupe peut administrer le contrôleur ZeroTier. Ne sélectionnez jamais les Visiteurs !"
 
 [resources]
 
