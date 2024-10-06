@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # ZeroUI for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/zeroui.svg)](https://dash.yunohost.org/appci/app/zeroui) ![Working status](https://ci-apps.yunohost.org/ci/badges/zeroui.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/zeroui.maintain.svg)
+[![Integration level](https://dash.yunohost.org/integration/zeroui.svg)](https://ci-apps.yunohost.org/ci/apps/zeroui/) ![Working status](https://ci-apps.yunohost.org/ci/badges/zeroui.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/zeroui.maintain.svg)
 
 [![Install ZeroUI with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=zeroui)
 

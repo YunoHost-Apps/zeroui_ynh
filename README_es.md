@@ -5,7 +5,7 @@ No se debe editar a mano.
 
 # ZeroUI para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/zeroui.svg)](https://dash.yunohost.org/appci/app/zeroui) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/zeroui.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/zeroui.maintain.svg)
+[![Nivel de integración](https://dash.yunohost.org/integration/zeroui.svg)](https://ci-apps.yunohost.org/ci/apps/zeroui/) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/zeroui.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/zeroui.maintain.svg)
 
 [![Instalar ZeroUI con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=zeroui)
 
@@ -44,7 +44,7 @@ This project is highly inspired by [ztncui](https://github.com/key-networks/ztnc
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/zeroui_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/zeroui_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 

@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # ZeroUI YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/zeroui.svg)](https://dash.yunohost.org/appci/app/zeroui) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/zeroui.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/zeroui.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/zeroui.svg)](https://ci-apps.yunohost.org/ci/apps/zeroui/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/zeroui.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/zeroui.maintain.svg)
 
 [![Instalatu ZeroUI YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=zeroui)
 
