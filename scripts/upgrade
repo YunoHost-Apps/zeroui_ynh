@@ -23,39 +23,30 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 
 #=================================================
-# "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression "Upgrading source files..."
 
-# FIXME: this is still supported but the recommendation is now to *always* re-setup the app sources wether or not the upstream sources changed
-if ynh_app_upstream_version_changed
-then
-	ynh_script_progression "Upgrading source files..."
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir"
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir"
+$nodejs_path/corepack enable
+$nodejs_path/corepack prepare yarn@stable --activate
 
-	$nodejs_path/corepack enable
-	$nodejs_path/corepack prepare yarn@stable --activate
+# Prevent ERR_OSSL_EVP_UNSUPPORTED error
+export NODE_OPTIONS=--openssl-legacy-provider
 
-	# Prevent ERR_OSSL_EVP_UNSUPPORTED error
-	export NODE_OPTIONS=--openssl-legacy-provider
+ynh_script_progression "Building the backend..."
+pushd $install_dir/backend
+	$nodejs_path/yarn install
+popd
 
-	ynh_script_progression "Building the backend..."
-	pushd $install_dir/backend
-		$nodejs_path/yarn install
-	popd
+ynh_script_progression "Building the frontend..."
+    pushd $install_dir/frontend
+	$nodejs_path/yarn install
+	$nodejs_path/yarn build
+popd
 
-	ynh_script_progression "Building the frontend..."
-        pushd $install_dir/frontend
-		$nodejs_path/yarn install
-		$nodejs_path/yarn build
-	popd
-fi
-
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:www-data "$install_dir"
 chown $app:www-data "$install_dir/frontend"
 chown -R $app:www-data "$install_dir/frontend/public"
 
@@ -71,8 +62,6 @@ ynh_config_add_systemd
 yunohost service add $app --description="ZeroTier Controller Web UI"
 
 #=================================================
-# RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
-#=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression "Updating configuration..."
@@ -82,9 +71,6 @@ zt_token="$(</var/lib/zerotier-one/authtoken.secret)"
 zt_addr="localhost:$(</var/lib/zerotier-one/zerotier-one.port)"
 
 ynh_config_add --template="env" --destination="$install_dir/.env"
-
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
 
 #=================================================
 # START SYSTEMD SERVICE
