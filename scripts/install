@@ -15,38 +15,37 @@ yunohost app list | grep -q "id: zerotier" || ynh_die "ZeroTier is needed, but i
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-# Prevent ERR_OSSL_EVP_UNSUPPORTED error
-export NODE_OPTIONS=--openssl-legacy-provider
-# Prevent yet another Node and Corepack madness
-
 ynh_nodejs_install
-
-$nodejs_path/corepack enable
-$nodejs_path/corepack prepare yarn@stable --activate
+ynh_hide_warnings corepack enable && corepack prepare pnpm@latest --activate
 
 #=================================================
-# APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+# Prevent ERR_OSSL_EVP_UNSUPPORTED error
+export NODE_OPTIONS=--openssl-legacy-provider
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
+
 ynh_setup_source --dest_dir="$install_dir"
 
 ynh_script_progression "Building the backend..."
 pushd $install_dir/backend
-	$nodejs_path/yarn install
+	ynh_hide_warnings ynh_exec_as_app yarn install
 popd
 
 ynh_script_progression "Building the frontend..."
 pushd $install_dir/frontend
-	$nodejs_path/yarn install
-	$nodejs_path/yarn build
+	ynh_hide_warnings ynh_exec_as_app yarn install
+	ynh_hide_warnings ynh_exec_as_app yarn build
 popd
 
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:$app "$install_dir"
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:www-data "$install_dir"
-chown $app:www-data "$install_dir/frontend"
-chown -R $app:www-data "$install_dir/frontend/public"
+chown $app: "$install_dir/frontend"
+chown -R $app: "$install_dir/frontend/public"
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -60,8 +59,6 @@ ynh_config_add_systemd
 yunohost service add $app --description="ZeroTier Controller Web UI"
 
 #=================================================
-# APP INITIAL CONFIGURATION
-#=================================================
 # ADD A CONFIGURATION
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
@@ -71,9 +68,6 @@ zt_token="$(</var/lib/zerotier-one/authtoken.secret)"
 zt_addr="localhost:$(</var/lib/zerotier-one/zerotier-one.port)"
 
 ynh_config_add --template="env" --destination="$install_dir/.env"
-
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/.env"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/.env"
 
 #=================================================
 # START SYSTEMD SERVICE

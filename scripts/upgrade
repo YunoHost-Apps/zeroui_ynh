@@ -23,6 +23,17 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+ynh_nodejs_install
+ynh_hide_warnings corepack enable && corepack prepare pnpm@latest --activate
+
+# Prevent ERR_OSSL_EVP_UNSUPPORTED error
+export NODE_OPTIONS=--openssl-legacy-provider
+
+#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
@@ -30,25 +41,17 @@ ynh_script_progression "Upgrading source files..."
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir"
 
-$nodejs_path/corepack enable
-$nodejs_path/corepack prepare yarn@stable --activate
-
-# Prevent ERR_OSSL_EVP_UNSUPPORTED error
-export NODE_OPTIONS=--openssl-legacy-provider
-
-ynh_script_progression "Building the backend..."
 pushd $install_dir/backend
-	$nodejs_path/yarn install
+	ynh_hide_warnings ynh_exec_as_app yarn install
 popd
 
-ynh_script_progression "Building the frontend..."
-    pushd $install_dir/frontend
-	$nodejs_path/yarn install
-	$nodejs_path/yarn build
+pushd $install_dir/frontend
+	ynh_hide_warnings ynh_exec_as_app yarn install
+	ynh_hide_warnings ynh_exec_as_app yarn build
 popd
 
-chown $app:www-data "$install_dir/frontend"
-chown -R $app:www-data "$install_dir/frontend/public"
+chown $app: "$install_dir/frontend"
+chown -R $app: "$install_dir/frontend/public"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
