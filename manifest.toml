@@ -7,7 +7,7 @@ name = "ZeroUI"
 description.en = "Web user interface for a ZeroTier network controller"
 description.fr = "Interface utilisateur web pour un contrôleur de réseau ZeroTier"
 
-version = "1.5.8~ynh1"
+version = "1.5.8~ynh2"
 
 maintainers = ["tituspijean"]
 
