@@ -4,24 +4,26 @@ packaging_format = 2
 
 id = "zeroui"
 name = "ZeroUI"
-description.en = "A web user interface for a ZeroTier network controller"
-description.fr = "Une interface utilisateur web pour un contrôleur de réseau ZeroTier"
+description.en = "Web user interface for a ZeroTier network controller"
+description.fr = "Interface utilisateur web pour un contrôleur de réseau ZeroTier"
 
 version = "1.5.8~ynh1"
 
 maintainers = ["tituspijean"]
 
 [upstream]
-# NB: Only the "license" key is mandatory. Remove entries for which there's no relevant data
 license = "GPL-3.0-only"
 code = "https://github.com/dec0dOS/zero-ui"
 
 [integration]
-yunohost = ">= 11.1.21"
+yunohost = ">= 12.0.9"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
+
 ldap = false
 sso = false
+
 disk = "300M"
 ram.build = "2G"
 ram.runtime = "50M"
